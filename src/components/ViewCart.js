@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Modal } from "semantic-ui-react";
-import { AddCart, RemoveCart } from "../actions/index";
+import { AddCart, RemoveCart, updateCart } from "../actions/index";
 import { connect } from "react-redux";
 import Product from "./Product";
 
@@ -52,7 +52,24 @@ const ViewCart = (props) => {
                               </i>
                             </h4>
                             <div>
-                              <button>-</button>
+                              {u.quntity > 1 && (
+                                <button
+                                  onClick={() => {
+                                    let tempArray = [...cart];
+                                    const existingProductIndex = cart.findIndex(
+                                      (x) => x.id === u.id
+                                    );
+                                    let product;
+                                    product = cart[existingProductIndex];
+                                    product.quntity -= 1;
+                                    tempArray[existingProductIndex] = product;
+                                    console.log("temp :", tempArray);
+                                    props.updateCart(tempArray);
+                                  }}
+                                >
+                                  -
+                                </button>
+                              )}
                               <span
                                 style={{ fontSize: "18px", margin: "0px 5px" }}
                               >
@@ -60,8 +77,16 @@ const ViewCart = (props) => {
                               </span>
                               <button
                                 onClick={() => {
-                                  u.quntity += 1;
-                                  props.AddCart(u);
+                                  let tempArray = [...cart];
+                                  const existingProductIndex = cart.findIndex(
+                                    (x) => x.id === u.id
+                                  );
+                                  let product;
+                                  product = cart[existingProductIndex];
+                                  product.quntity += 1;
+                                  tempArray[existingProductIndex] = product;
+                                  console.log("temp :", tempArray);
+                                  props.updateCart(tempArray);
                                 }}
                               >
                                 +
@@ -97,7 +122,9 @@ const ViewCart = (props) => {
 };
 
 const mapStateToProps = (state) => {};
-export default connect(mapStateToProps, { AddCart, RemoveCart })(ViewCart);
+export default connect(mapStateToProps, { AddCart, RemoveCart, updateCart })(
+  ViewCart
+);
 const styles = {
   contentContainer: {
     flexDirection: "row",

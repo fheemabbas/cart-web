@@ -74,6 +74,7 @@ const Product = (props) => {
               type="button"
               className="btn btn-primary"
               onClick={() => {
+                data.quntity = 1;
                 props.AddCart(data);
               }}
             >
