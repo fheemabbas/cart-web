@@ -1,12 +1,16 @@
 import "./App.css";
 import ProductList from "./components/ProductList";
-function App() {
+import { connect } from "react-redux";
+function App(props) {
+  console.log("cart is :", props.cart);
   return (
     <div className="App">
       Heelo World
-      <ProductList />
+      <ProductList cart={props.cart} />
     </div>
   );
 }
-
-export default App;
+const mapStateToProps = (state) => {
+  return { cart: state.cart };
+};
+export default connect(mapStateToProps, {})(App);
