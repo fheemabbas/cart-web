@@ -21,6 +21,7 @@ const styles = {
     borderTop: "solid 1px #EEE",
   },
   cartButton: {
+    marginRight: "5px",
     backgroundColor: "white",
     borderRadius: "50px",
     borderColor: "forestgreen",
@@ -119,20 +120,31 @@ const Product = (props) => {
           </div>
           <div style={styles.buttonContainer}>
             {inCart ? (
-              <button
-                className="btn btn-primary"
-                style={styles.cartButton}
-                onClick={() => {
-                  let newArray = [...props.cart];
-                  newArray = newArray.filter((u) => {
-                    return u.id !== data.id;
-                  });
-                  props.RemoveCart(newArray); // Setting new Data into Cart
-                  setinCart(false);
-                }}
-              >
-                Remove from cart
-              </button>
+              <>
+                <button
+                  className="btn btn-primary"
+                  style={styles.cartButton}
+                  onClick={() => {
+                    let newArray = [...props.cart];
+                    newArray = newArray.filter((u) => {
+                      return u.id !== data.id;
+                    });
+                    props.RemoveCart(newArray); // Setting new Data into Cart
+                    setinCart(false);
+                  }}
+                >
+                  Remove from cart
+                </button>
+                <button
+                  className="btn btn-primary"
+                  style={styles.cartButton}
+                  onClick={() => {
+                    props.setopen();
+                  }}
+                >
+                  View Cart
+                </button>
+              </>
             ) : (
               <button
                 type="button"

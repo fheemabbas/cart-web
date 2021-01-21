@@ -17,6 +17,7 @@ const styles = {
     zIndex: 1,
   },
   cartMain: {
+    fontWeight: 600,
     position: "relative",
     top: "-5px",
   },
@@ -46,7 +47,7 @@ function App(props) {
 
       <div className="App">
         {/* Product List Component */}
-        <ProductList />
+        <ProductList setopen={() => setopen(true)} />
         {/* View Cart Component */}
         <ViewCart open={open} setOpen={setopen} cart={props.cart} />
       </div>

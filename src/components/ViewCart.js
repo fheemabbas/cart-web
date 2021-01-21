@@ -78,6 +78,7 @@ const ViewCart = (props) => {
           Close
         </Button>
         <Button
+          disabled={cart.length < 1}
           content="Place Order"
           labelPosition="right"
           icon="checkmark"

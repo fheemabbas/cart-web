@@ -18,7 +18,13 @@ class ProductList extends React.Component {
         {/* Rendering Product List */}
         {productListData &&
           productListData.map((u, i) => {
-            return <Product data={u} key={u.id} />;
+            return (
+              <Product
+                data={u}
+                key={u.id}
+                setopen={() => this.props.setopen()}
+              />
+            );
           })}
       </div>
     );
