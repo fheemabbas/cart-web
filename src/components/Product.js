@@ -2,17 +2,78 @@ import React, { useState, useEffect } from "react";
 import { AddCart, RemoveCart } from "../actions/index";
 import { connect } from "react-redux";
 import ReactStars from "react-rating-stars-component";
+
+const styles = {
+  descriptionTitle: { fontWeight: "bold" },
+  itemPrice: { fontSize: "16px" },
+  rating: { display: "flex", justifyContent: "center" },
+  imageContainer: {
+    maxHeight: "200px",
+    maxWidth: "200px",
+    height: "100px",
+    width: "100px",
+    margin: "0 auto",
+  },
+  buttonContainer: {
+    padding: "14px 10px 0",
+    display: "block",
+    backgroundColor: "F8F8F8",
+    borderTop: "solid 1px #EEE",
+  },
+  cartButton: {
+    backgroundColor: "white",
+    borderRadius: "50px",
+    borderColor: "forestgreen",
+    color: "forestgreen",
+  },
+  image: { height: "100%", width: "100%", borderRadius: "50px" },
+  title: {
+    lineHeight: "1.5em",
+    overflow: "hidden",
+    // height: "3em",
+    padding: "10px 0px",
+    fontSize: "18px",
+    fontWeight: 600,
+  },
+  description: {
+    // display: "flex",
+    lineHeight: "1.5em",
+    overflow: "hidden",
+    height: "3em",
+    margin: "10px 0px ",
+    fontSize: "14px",
+    textAlign: "left",
+  },
+  price: {
+    lineHeight: "1.5em",
+    margin: "5px",
+  },
+  container: {
+    marginTop: "0px",
+    margin: "10px",
+    width: "30rem",
+    border: "1px solid #efefef",
+    boxShadow: "0px 0px 20px rgba(0,0,0,0.05)",
+    padding: "20px",
+    borderRadius: "5px",
+  },
+};
 const Product = (props) => {
   const [inCart, setinCart] = useState(false);
-  // const [state, setstate] = useState(initialState)
-  const { data, cart } = props;
+  const { data } = props;
 
   useEffect(() => {
-    for (let i = 0; i < cart.length; i++) {
-      if (props.cart[i].id === data.id) {
-        setinCart(true);
-        break;
+    if (props.cart.length) {
+      for (let i = 0; i < props.cart.length; i++) {
+        if (props.cart[i].id === data.id) {
+          setinCart(true);
+          break;
+        } else {
+          setinCart(false);
+        }
       }
+    } else {
+      setinCart(false);
     }
   }, [props.cart]);
   const Rating = {
@@ -54,33 +115,36 @@ const Product = (props) => {
           <div className="card-text" style={styles.rating}>
             <ReactStars {...Rating} />
           </div>
-
-          {inCart ? (
-            <button
-              className="btn btn-primary"
-              onClick={() => {
-                let newArray = [...cart];
-                newArray = newArray.filter((u) => {
-                  return u.id !== data.id;
-                });
-                props.RemoveCart(newArray);
-                setinCart(false);
-              }}
-            >
-              Remove from cart
-            </button>
-          ) : (
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={() => {
-                data.quntity = 1;
-                props.AddCart(data);
-              }}
-            >
-              Add to Cart
-            </button>
-          )}
+          <div style={styles.buttonContainer}>
+            {inCart ? (
+              <button
+                className="btn btn-primary"
+                style={styles.cartButton}
+                onClick={() => {
+                  let newArray = [...props.cart];
+                  newArray = newArray.filter((u) => {
+                    return u.id !== data.id;
+                  });
+                  props.RemoveCart(newArray);
+                  setinCart(false);
+                }}
+              >
+                Remove from cart
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="btn btn-primary"
+                style={styles.cartButton}
+                onClick={() => {
+                  data.quntity = 1;
+                  props.AddCart(data);
+                }}
+              >
+                Add to Cart
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </>
@@ -91,48 +155,3 @@ const mapStateToProps = (state) => {
   return { cart: state.cart };
 };
 export default connect(mapStateToProps, { AddCart, RemoveCart })(Product);
-
-const styles = {
-  descriptionTitle: { fontWeight: "bold" },
-  itemPrice: { fontSize: "16px" },
-  rating: { display: "flex", justifyContent: "center" },
-  imageContainer: {
-    maxHeight: "200px",
-    maxWidth: "200px",
-    height: "100px",
-    width: "100px",
-    margin: "0 auto",
-  },
-
-  image: { height: "100%", width: "100%", borderRadius: "50px" },
-  title: {
-    lineHeight: "1.5em",
-    overflow: "hidden",
-    // height: "3em",
-    padding: "10px 0px",
-    fontSize: "18px",
-    fontWeight: 600,
-  },
-  description: {
-    // display: "flex",
-    lineHeight: "1.5em",
-    overflow: "hidden",
-    height: "3em",
-    margin: "10px 0px ",
-    fontSize: "14px",
-    textAlign: "left",
-  },
-  price: {
-    lineHeight: "1.5em",
-    margin: "5px",
-  },
-  container: {
-    marginTop: "0px",
-    margin: "10px",
-    width: "30rem",
-    border: "1px solid #efefef",
-    boxShadow: "0px 0px 20px rgba(0,0,0,0.05)",
-    padding: "20px",
-    borderRadius: "5px",
-  },
-};

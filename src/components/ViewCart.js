@@ -1,9 +1,17 @@
 import React from "react";
 import { Button, Modal } from "semantic-ui-react";
-import { AddCart, RemoveCart, updateCart } from "../actions/index";
+import { placeOrder } from "../actions/index";
 import { connect } from "react-redux";
-import Product from "./Product";
+import UpdateButton from "./UpdateButton";
 
+const productTotalPrice = (cart) => {
+  let totalItem = 0;
+  cart.map((item) => {
+    // eslint-disable-next-line operator-assignment
+    return (totalItem = totalItem + item.quntity * item.price);
+  });
+  return totalItem.toFixed(2);
+};
 const ViewCart = (props) => {
   const { open, setOpen, cart } = props;
   return (
@@ -25,21 +33,15 @@ const ViewCart = (props) => {
             {cart &&
               cart.map((u, i) => {
                 return (
-                  <div className="container py-3" style={{ padding: "10px" }}>
-                    <div className="card">
-                      <div className="row ">
-                        <div
-                          className="col-md-4"
-                          style={{
-                            height: "100px",
-                            width: "250px",
-                            margin: "0 auto",
-                          }}
-                        >
+                  <div className="container py-3 row" style={styles.root}>
+                    <div className="card-main col-md-12" style={styles.card}>
+                      <div className="main-section ">
+                        <div className="col-md-4" style={styles.imageContainer}>
                           <img
                             src={u.filename}
                             className="w-100"
-                            style={{ height: "100%", width: "100%" }}
+                            alt={u.title}
+                            style={styles.image}
                           />
                         </div>
                         <div className="col-md-8 px-3">
@@ -48,50 +50,14 @@ const ViewCart = (props) => {
                             <h4 className="card-title">
                               <i className="fa fa-inr" style={styles.itemPrice}>
                                 {"  "}
-                                {u.price}
+                                {(u.quntity * u.price).toFixed(2)}
                               </i>
                             </h4>
-                            <div>
-                              {u.quntity > 1 && (
-                                <button
-                                  onClick={() => {
-                                    let tempArray = [...cart];
-                                    const existingProductIndex = cart.findIndex(
-                                      (x) => x.id === u.id
-                                    );
-                                    let product;
-                                    product = cart[existingProductIndex];
-                                    product.quntity -= 1;
-                                    tempArray[existingProductIndex] = product;
-                                    console.log("temp :", tempArray);
-                                    props.updateCart(tempArray);
-                                  }}
-                                >
-                                  -
-                                </button>
-                              )}
-                              <span
-                                style={{ fontSize: "18px", margin: "0px 5px" }}
-                              >
-                                {u.quntity}
-                              </span>
-                              <button
-                                onClick={() => {
-                                  let tempArray = [...cart];
-                                  const existingProductIndex = cart.findIndex(
-                                    (x) => x.id === u.id
-                                  );
-                                  let product;
-                                  product = cart[existingProductIndex];
-                                  product.quntity += 1;
-                                  tempArray[existingProductIndex] = product;
-                                  console.log("temp :", tempArray);
-                                  props.updateCart(tempArray);
-                                }}
-                              >
-                                +
-                              </button>
-                            </div>
+                            <UpdateButton
+                              quntity={u.quntity}
+                              id={u.id}
+                              cart={cart}
+                            />
                           </div>
                         </div>
                       </div>
@@ -99,6 +65,9 @@ const ViewCart = (props) => {
                   </div>
                 );
               })}
+          </div>
+          <div style={styles.totlaContainer}>
+            Total Amount: {productTotalPrice(cart)}
           </div>
         </Modal.Content>
       )}
@@ -112,6 +81,7 @@ const ViewCart = (props) => {
           labelPosition="right"
           icon="checkmark"
           onClick={async () => {
+            props.placeOrder();
             setOpen(false);
           }}
           positive
@@ -122,17 +92,24 @@ const ViewCart = (props) => {
 };
 
 const mapStateToProps = (state) => {};
-export default connect(mapStateToProps, { AddCart, RemoveCart, updateCart })(
-  ViewCart
-);
+export default connect(mapStateToProps, { placeOrder })(ViewCart);
 const styles = {
-  contentContainer: {
+  root: { padding: "10px" },
+  totlaContainer: {
     flexDirection: "row",
     display: "flex",
     flexWrap: "wrap",
-    justifyContent: "center",
+    justifyContent: "flex-end",
+    fontSize: "14px",
+    fontWeight: 600,
   },
   noDataContainer: {
     padding: "20px",
   },
+  imageContainer: {
+    height: "80px",
+    width: "100px",
+    margin: "0 20px ",
+  },
+  image: { height: "100%", width: "100%", borderRadius: "50px" },
 };

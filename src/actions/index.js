@@ -9,3 +9,6 @@ export const RemoveCart = (data) => async (dispatch) => {
 export const updateCart = (data) => async (dispatch) => {
   dispatch({ type: "UPDATE_CART", payload: data });
 };
+export const placeOrder = () => async (dispatch) => {
+  dispatch({ type: "PLACE_ORDER" });
+};

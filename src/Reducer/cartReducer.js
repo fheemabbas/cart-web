@@ -6,6 +6,8 @@ export default (state = [], action) => {
       return action.payload;
     case "UPDATE_CART":
       return action.payload;
+    case "PLACE_ORDER":
+      return (state = []);
     default:
       return state;
   }
