@@ -6,7 +6,7 @@ import ReactStars from "react-rating-stars-component";
 const styles = {
   descriptionTitle: { fontWeight: "bold" },
   itemPrice: { fontSize: "16px" },
-  rating: { display: "flex", justifyContent: "center" },
+  rating: { display: "flex", justifyContent: "center", zIndex: 0 },
   imageContainer: {
     maxHeight: "200px",
     maxWidth: "200px",
@@ -42,11 +42,12 @@ const styles = {
     height: "3em",
     margin: "10px 0px ",
     fontSize: "14px",
-    textAlign: "left",
+    textAlign: "center",
   },
   price: {
     lineHeight: "1.5em",
     margin: "5px",
+    zIndex: 0,
   },
   container: {
     marginTop: "0px",

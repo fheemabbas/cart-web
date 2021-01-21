@@ -12,13 +12,20 @@ const styles = {
     backgroundColor: "forestgreen",
     borderBottom: "1px solid rgba(0,0,0,.125)",
     color: "#f8f9fa",
+    position: "sticky",
+    top: 0,
+    zIndex: 1,
+  },
+  cartMain: {
+    position: "relative",
+    top: "-5px",
   },
 };
 function App(props) {
   const [open, setopen] = useState(false);
 
   return (
-    <div>
+    <>
       {/* header section */}
       <div style={styles.header}>
         <i
@@ -30,6 +37,7 @@ function App(props) {
         <span
           className="btn btn-outline-info btn-sm pull-right"
           onClick={() => setopen(true)}
+          style={styles.cartMain}
         >
           View Cart
         </span>
@@ -42,7 +50,7 @@ function App(props) {
         {/* View Cart Component */}
         <ViewCart open={open} setOpen={setopen} cart={props.cart} />
       </div>
-    </div>
+    </>
   );
 }
 
