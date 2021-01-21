@@ -20,6 +20,10 @@ const styles = {
     fontWeight: 600,
     position: "relative",
     top: "-5px",
+    fontSize: "18px",
+  },
+  mainTitle: {
+    fontSize: "18px",
   },
 };
 function App(props) {
@@ -34,7 +38,7 @@ function App(props) {
           aria-hidden="true"
           style={styles.headerLogo}
         ></i>
-        Cart-Web
+        <span style={styles.mainTitle}>Cart-Web</span>
         <span
           className="btn btn-outline-info btn-sm pull-right"
           onClick={() => setopen(true)}
