@@ -15,6 +15,7 @@ class ProductList extends React.Component {
   render() {
     return (
       <div style={styles.container}>
+        {/* Rendering Product List */}
         {productListData &&
           productListData.map((u, i) => {
             return <Product data={u} key={u.id} />;
@@ -23,7 +24,5 @@ class ProductList extends React.Component {
     );
   }
 }
-const mapStateToProps = (state) => {
-  return { cart: state.cart };
-};
+const mapStateToProps = (state) => {};
 export default connect(mapStateToProps, {})(ProductList);

@@ -53,6 +53,7 @@ const ViewCart = (props) => {
                                 {(u.quntity * u.price).toFixed(2)}
                               </i>
                             </h4>
+                            {/* Update Buttong=n Component For Updating Item Quntity */}
                             <UpdateButton
                               quntity={u.quntity}
                               id={u.id}

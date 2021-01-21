@@ -19,6 +19,7 @@ function App(props) {
 
   return (
     <div>
+      {/* header section */}
       <div style={styles.header}>
         <i
           className="fa fa-shopping-cart"
@@ -34,8 +35,11 @@ function App(props) {
         </span>
         <div className="clearfix"></div>
       </div>
+
       <div className="App">
+        {/* Product List Component */}
         <ProductList />
+        {/* View Cart Component */}
         <ViewCart open={open} setOpen={setopen} cart={props.cart} />
       </div>
     </div>

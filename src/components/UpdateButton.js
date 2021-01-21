@@ -12,6 +12,7 @@ const styles = {
   },
   itemQuntity: { fontSize: "18px", margin: "0px 5px" },
 };
+// For Updating Cart Quntity
 const UpdateButton = (props) => {
   const { cart, quntity, id } = props;
   const UpdateQuntity = (cart, id, operation) => {
@@ -37,7 +38,7 @@ const UpdateButton = (props) => {
             newArray = newArray.filter((x) => {
               return x.id !== id;
             });
-            props.RemoveCart(newArray);
+            props.RemoveCart(newArray); // Setting new Data into Cart
           }}
         >
           <span class="glyphicon glyphicon-trash"></span>
@@ -48,7 +49,7 @@ const UpdateButton = (props) => {
           className="btn btn-primary"
           style={styles.cartButton}
           onClick={() => {
-            UpdateQuntity(cart, id, "remove");
+            UpdateQuntity(cart, id, "remove"); // Update Item Quntity in Cart
           }}
         >
           -
@@ -60,7 +61,7 @@ const UpdateButton = (props) => {
         className="btn btn-primary"
         style={styles.cartButton}
         onClick={() => {
-          UpdateQuntity(cart, id, "add");
+          UpdateQuntity(cart, id, "add"); // Update Item Quntity in Cart
         }}
       >
         +

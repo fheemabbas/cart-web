@@ -60,9 +60,9 @@ const styles = {
 };
 const Product = (props) => {
   const [inCart, setinCart] = useState(false);
-  const { data } = props;
-
+  const { data } = props; //getting Data from Props
   useEffect(() => {
+    // changes Product in Cart or Not using flag
     if (props.cart.length) {
       for (let i = 0; i < props.cart.length; i++) {
         if (props.cart[i].id === data.id) {
@@ -87,12 +87,13 @@ const Product = (props) => {
   };
   return (
     <>
+      {/* Product Card */}
       <div className="card" style={styles.container}>
         <div style={styles.imageContainer}>
           <img
             src={data.filename}
             className="card-img-top"
-            alt="..."
+            alt={data.title}
             style={styles.image}
           />
         </div>
@@ -125,7 +126,7 @@ const Product = (props) => {
                   newArray = newArray.filter((u) => {
                     return u.id !== data.id;
                   });
-                  props.RemoveCart(newArray);
+                  props.RemoveCart(newArray); // Setting new Data into Cart
                   setinCart(false);
                 }}
               >
@@ -138,7 +139,7 @@ const Product = (props) => {
                 style={styles.cartButton}
                 onClick={() => {
                   data.quntity = 1;
-                  props.AddCart(data);
+                  props.AddCart(data); // Setting new Data into Cart
                 }}
               >
                 Add to Cart
