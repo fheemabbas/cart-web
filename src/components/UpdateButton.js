@@ -20,9 +20,7 @@ const UpdateButton = (props) => {
     const existingProductIndex = cart.findIndex((x) => x.id === id);
     let product;
     product = cart[existingProductIndex];
-    {
-      operation === "add" ? (product.quntity += 1) : (product.quntity -= 1);
-    }
+    operation === "add" ? (product.quntity += 1) : (product.quntity -= 1);
     tempArray[existingProductIndex] = product;
     props.updateCart(tempArray);
   };
